@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.daou</groupId>
+    <artifactId>topProject-executable-jar</artifactId>
+    <version>0.0.1</version>
+  </parent>
+  <artifactId>topProject-executable-jar-smtp-sender</artifactId>
+  <name>topProject-executable-jar-smtp-sender</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+	<build>
+	  <plugins>
+	    <plugin>
+	      <artifactId>maven-shade-plugin</artifactId>
+	      <version>2.0</version>
+	      <executions>
+	        <execution>
+	          <phase>package</phase>
+	          <goals>
+	            <goal>shade</goal>
+	          </goals>
+	          <configuration>
+	            <archive></archive>
+	            <transformers>
+	              <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+	                <resource>META-INF/spring.handlers</resource>
+	              </transformer>
+	              <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+	                <resource>META-INF/spring.schemas</resource>
+	              </transformer>
+	              <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+	              <manifestEntries>
+	                <Main-Class>com.daou.smtp.SmtpMain</Main-Class>
+	              </manifestEntries>
+	              </transformer>
+	            </transformers>
+	            <finalName>smtpMain</finalName>
+	            <filters>
+	              <filter>
+	                <artifact>*:*</artifact>
+	                <excludes>
+	                  <exclude>META-INF/*.SF</exclude>
+	                  <exclude>META-INF/*.DSA</exclude>
+	                  <exclude>META-INF/*.RSA</exclude>
+	                </excludes>
+	              </filter>
+	            </filters>
+	          </configuration>
+	        </execution>
+	      </executions>
+	    </plugin>
+	  </plugins>
+	</build>
+</project>

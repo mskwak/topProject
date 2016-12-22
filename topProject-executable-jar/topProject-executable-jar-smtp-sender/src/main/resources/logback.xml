@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+
+	<property name="LOG_DIR" value="/tma2data/log/crawler/domino" />
+
+	<!-- Appenders -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} %t %-5p: %c{0}.%M\(\) - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/crawler.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/crawler_%d{yyyyMMdd}.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} %t %-5p: %c{0}.%M\(\) - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Application Loggers -->
+	<logger name="com.daou" level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework" level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+	<logger name="org.apache.http" level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+</configuration>

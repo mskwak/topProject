@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+	<persistence-unit name="jpabook">
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+			<property name="javax.persistence.jdbc.user" value="sa"/>
+			<property name="javax.persistence.jdbc.password" value=""/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+			<!-- dialect: MySQL에서의 limit, Oracle에서의 rownum 처럼 각각의 RDBMS만이 갖고 있는 고유한 기능들.
+				아래 사이트에서 각각의 RDBMS에 대한 dialect 설정하는 방법을 확인할 수 있다.
+				https://docs.jboss.org/hibernate/orm/4.3/manual/en-US/html_single/#portability-dialect -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+			
+			<!-- 아래 설정은 실행되는 SQL문을 콘솔에 출력할 수 있다. -->
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+			
+			<!-- 아래 설정은 오라클에서의 시퀀스, MySQL에서의 AUTO_INCREMENT와 같이 기본 키 생성 전략을 사용할 수있도록 한다.
+				자바 ORM 표준 JPA 프로그래밍 p.131 참조-->
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
+			
+			<!-- 아래 설정은 애플리케이션 실행 시점에 데이터베이스 테이블을 자동으로 생성하도록 한다. -->
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
+		</properties>
+	</persistence-unit>
+</persistence>
