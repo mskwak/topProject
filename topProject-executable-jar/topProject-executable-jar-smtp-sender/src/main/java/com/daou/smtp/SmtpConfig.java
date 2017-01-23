@@ -11,7 +11,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @ComponentScan("com.daou")
 @PropertySource("file:${properties.file.path}")
 public class SmtpConfig {
-	@Value("${send.internal.second}") private double sleepInterval;
+	@Value("${send.interval.second}") private double sleepInterval;
 	@Value("${send.thread.count}") private int smtpSenderCount;
 	@Value("${eml.directory}") private String emlDirectory;
 	@Value("${mail.smtp.host}") private String host;
@@ -24,7 +24,7 @@ public class SmtpConfig {
 	@Value("${mail.debug}") private boolean isDebug;
 	@Value("${mail.smtp.ssl.enable}") private boolean isSsl;
 	@Value("${mail.smtp.starttls.enable}") private boolean isStarttls;
-	
+
 	@Bean
 	public long getSleepInterval() {
 		return (long) this.sleepInterval * 1000;
@@ -82,12 +82,12 @@ public class SmtpConfig {
 
 	@Bean
 	public boolean isSsl() {
-		return isSsl;
+		return this.isSsl;
 	}
 
 	@Bean
 	public boolean isStarttls() {
-		return isStarttls;
+		return this.isStarttls;
 	}
 
 	@Bean
