@@ -3,7 +3,7 @@ package com.daou.smtp;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class SmtpMain {
+public class SmtpClient {
 	public static void main(String[] args) {
 		String propertiesPath = System.getProperty("properties.file.path");
 		String logbackPath = System.getProperty("logback.configurationFile");
@@ -30,6 +30,6 @@ public class SmtpMain {
 	}
 
 	private static void usage() {
-		System.out.println("/path/to/java -jar -Dproperties.file.path=/path/to/file.properties -Dlogback.configurationFile=/path/to/logback.xml");
+		System.out.println("/path/to/java -jar -Dproperties.file.path=/path/to/file.properties -Dlogback.configurationFile=/path/to/logback.xml tool.jar");
 	}
 }

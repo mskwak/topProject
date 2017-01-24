@@ -47,7 +47,7 @@
 	              </manifestEntries>
 	              </transformer>
 	            </transformers>
-	            <finalName>smtpMain</finalName>
+	            <finalName>smtpClient</finalName>
 	            <filters>
 	              <filter>
 	                <artifact>*:*</artifact>
