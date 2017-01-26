@@ -23,7 +23,7 @@
 	</appender>
 
 	<!-- Application Loggers -->
-	<logger name="com.daou" level="debug">
+	<logger name="com.hangugi" level="debug">
 		<!-- <appender-ref ref="console" />  -->
 		<appender-ref ref="file" />
 	</logger>

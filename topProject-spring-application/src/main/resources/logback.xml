@@ -22,7 +22,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.daou" level="DEBUG" />
+	<logger name="com.hangugi" level="DEBUG" />
 
 	<logger name="org.springframework" level="DEBUG">
 		<appender-ref ref="FILE" />

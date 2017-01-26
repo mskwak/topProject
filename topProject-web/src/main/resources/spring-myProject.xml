@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.2.xsd"
 	default-autowire="byName">
-	<!-- byName은 <bean name="myBean" class="com.daou.MyBean">와 같은 설정에서 이름이 myBean인 객체가 프로퍼티(클래스의 멤버변수)의 값으로 전달될 수 있도록 한다. -->
+	<!-- byName은 <bean name="myBean" class="com.hangugi.MyBean">와 같은 설정에서 이름이 myBean인 객체가 프로퍼티(클래스의 멤버변수)의 값으로 전달될 수 있도록 한다. -->
 	
 	<!-- <context:annotation-config /> 설정은 @Required, @Autowired @Resource, @PostConstruct, @PreDestory, @Configuration 설정되어 있는 빈을 자동으로 등록해준다.
 	스프링3.0 프로그래밍. p.117 -->
@@ -37,7 +37,7 @@
 	 -->
 	<mvc:default-servlet-handler/>
 	
-	<context:component-scan base-package="com.daou" />
+	<context:component-scan base-package="com.hangugi" />
 	
 	<!-- http://docs.spring.io/spring/docs/3.2.13.RELEASE/spring-framework-reference/html/index.html 
 	6.4 ~ 6.7 Resource interface 와 classpath* 에 대한 설명이 있다. -->

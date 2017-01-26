@@ -38,7 +38,7 @@
 	
 	<filter>
 		<filter-name>SessionFilter</filter-name>
-		<filter-class>com.daou.filter.SessionFilter</filter-class>
+		<filter-class>com.hangugi.filter.SessionFilter</filter-class>
 	</filter>
 	
 	<!-- 단지 request에 대해서만 UTF-8로 인코딩한다. -->

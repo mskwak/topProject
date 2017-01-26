@@ -14,5 +14,5 @@
 	default-autowire="byName">
 	
 	<context:annotation-config />
-	<context:component-scan base-package="com.daou.tma2.crawler.domino" />
+	<context:component-scan base-package="com.hangugi.tma2.crawler.domino" />
 </beans>

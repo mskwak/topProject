@@ -12,14 +12,14 @@
 	
 	<!-- artifactId spring-context-support의 설치가 필요하다. -->
 	
-	<bean id="job01" class="com.daou.quartz.group01.Job01" />
-	<bean id="job02" class="com.daou.quartz.group01.Job02" />
-	<bean id="job03" class="com.daou.quartz.group02.Job03" />
-	<bean id="job04" class="com.daou.quartz.group02.Job04" />
+	<bean id="job01" class="com.hangugi.quartz.group01.Job01" />
+	<bean id="job02" class="com.hangugi.quartz.group01.Job02" />
+	<bean id="job03" class="com.hangugi.quartz.group02.Job03" />
+	<bean id="job04" class="com.hangugi.quartz.group02.Job04" />
 	
-    <!-- <bean name="dummyJob" class="org.springframework.scheduling.quartz.JobDetailBean" p:jobClass="com.daou.quartz.ExtendedQuartzJobBean"> -->
+    <!-- <bean name="dummyJob" class="org.springframework.scheduling.quartz.JobDetailBean" p:jobClass="com.hangugi.quartz.ExtendedQuartzJobBean"> -->
     <bean id="extendedJobDetailBean01" class="org.springframework.scheduling.quartz.JobDetailBean">
-    	<property name="jobClass" value="com.daou.quartz.group01.ExtendedJobDetailBean01" />
+    	<property name="jobClass" value="com.hangugi.quartz.group01.ExtendedJobDetailBean01" />
     	<property name="jobDataAsMap">
     		<map>
     			<entry key="job01" value-ref="job01"></entry>
@@ -29,7 +29,7 @@
     </bean>
 
     <bean id="extendedJobDetailBean02" class="org.springframework.scheduling.quartz.JobDetailBean">
-    	<property name="jobClass" value="com.daou.quartz.group02.ExtendedJobDetailBean02" />
+    	<property name="jobClass" value="com.hangugi.quartz.group02.ExtendedJobDetailBean02" />
     	<property name="jobDataAsMap">
     		<map>
     			<entry key="job03" value-ref="job03"></entry>
