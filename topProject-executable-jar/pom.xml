@@ -10,6 +10,7 @@
   <modules>
   	<module>topProject-executable-jar-smtp-sender</module>
   	<module>topProject-executable-jar-rcpt-auth</module>
+  	<module>topProject-executable-jar-smtp-server</module>
   </modules>
   <name>topProjectExecutableJar</name>
 </project>
