@@ -3,6 +3,7 @@ package com.hangugi;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+@Deprecated
 public class NettyMain {
     public static void main( String[] args ) {
     	String configLocation = "classpath:netty.xml";
