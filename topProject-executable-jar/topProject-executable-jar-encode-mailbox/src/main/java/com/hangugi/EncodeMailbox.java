@@ -70,7 +70,7 @@ public class EncodeMailbox {
 				String utf7 = BASE64MailboxEncoder.encode(line);
 				bufferedWriter.write(utf7);
 				bufferedWriter.newLine();
-				System.out.println(line + ":" + utf7);
+				//System.out.println(line + ":" + utf7);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
