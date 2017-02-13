@@ -16,42 +16,46 @@ import gnu.getopt.Getopt;
 
 public class EncodeMailbox {
 	public static void main(String[] args) {
-		Getopt getopt = new Getopt("encodeMailbox", args, "f:");
+		Getopt getopt = new Getopt("encodeMailbox", args, "i:o:");
 
 		int c;
-		String arg = null;
+		String input = null;
+		String output = null;
 
 		while((c = getopt.getopt()) != -1) {
 			// System.out.println("c:" + c); 출력이 102이다. 왜일까?
 			switch(c) {
-				case 'f':
-					arg = getopt.getOptarg();
+				case 'i':
+					input = getopt.getOptarg();
+					break;
+				case 'o':
+					output = getopt.getOptarg();
 					break;
 				default:
-					System.out.println("/path/to/java -jar encodeMailbox.jar -f file");
+					System.out.println("/path/to/java -jar encodeMailbox.jar -i input_file_path -o output_file_path");
 					System.exit(0);
 			}
 		}
 
-		File file = new File(arg);
+		File inputFile = new File(input);
+		File outputFile = new File(output);
 
-		if(!file.exists() || file.isDirectory()) {
-			System.out.println("/path/to/java -jar encodeMailbox.jar -f file");
-			System.out.println("-f file does not exist. file must be text file.");
+		if(!inputFile.exists() || inputFile.isDirectory()) {
+			System.out.println("/path/to/java -jar encodeMailbox.jar -i input_file_path -o output_file_path");
+			System.out.println("-i file does not exist. file must be text file.");
 			System.exit(0);
 		}
 
-		encodeMailbox(file);
+		encodeMailbox(inputFile, outputFile);
 	}
 
-	private static void encodeMailbox(File file) {
-		String resultFile = file.getParent() + "/encodedMailBoxList.txt";
+	private static void encodeMailbox(File inputFile, File outputFile) {
 		BufferedReader bufferedReader = null;
 		BufferedWriter bufferedWriter = null;
 
 		try {
-			bufferedReader = new BufferedReader(new FileReader(file));
-			bufferedWriter = new BufferedWriter(new FileWriter(resultFile));
+			bufferedReader = new BufferedReader(new FileReader(inputFile));
+			bufferedWriter = new BufferedWriter(new FileWriter(outputFile));
 
 			String line = null;
 
@@ -62,7 +66,6 @@ public class EncodeMailbox {
 				bufferedWriter.newLine();
 				System.out.println(line + ":" + utf7);
 			}
-
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
