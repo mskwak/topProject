@@ -13,6 +13,7 @@
   	<module>topProject-executable-jar-rcpt-auth</module>
   	<module>topProject-executable-jar-smtp-server</module>
     <module>topProject-executable-jar-encode-mailbox</module>
+    <module>topProject-executable-jar-mime-parser</module>
   </modules>
   <name>topProjectExecutableJar</name>
 </project>
