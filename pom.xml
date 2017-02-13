@@ -10,12 +10,12 @@
   <modules>
     <module>topProject-utils</module>
     <module>topProject-web</module>
-    <module>topProject-pattern</module>
     <module>topProject-domino</module>
     <module>topProject-spring-application</module>
     <module>topProject-spring-jpa</module>
     <module>topProject-executable-jar</module>
     <module>topProject-spring-pure-netty</module>
+    <module>topProject-pattern</module>
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
