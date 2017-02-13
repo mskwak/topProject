@@ -32,21 +32,27 @@ public class EncodeMailbox {
 					output = getopt.getOptarg();
 					break;
 				default:
-					System.out.println("/path/to/java -jar encodeMailbox.jar -i input_file_path -o output_file_path");
-					System.exit(0);
+					usage();
 			}
+		}
+
+		if(input == null || output == null) {
+			usage();
 		}
 
 		File inputFile = new File(input);
 		File outputFile = new File(output);
 
-		if(!inputFile.exists() || inputFile.isDirectory()) {
-			System.out.println("/path/to/java -jar encodeMailbox.jar -i input_file_path -o output_file_path");
-			System.out.println("-i file does not exist. file must be text file.");
-			System.exit(0);
+		if(!inputFile.exists() || inputFile.isDirectory() || outputFile.isDirectory()) {
+			usage();
 		}
 
 		encodeMailbox(inputFile, outputFile);
+	}
+
+	private static void usage() {
+		System.out.println("/path/to/java -jar encodeMailbox.jar -i input_file_path -o output_file_path");
+		System.exit(0);
 	}
 
 	private static void encodeMailbox(File inputFile, File outputFile) {
