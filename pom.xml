@@ -16,6 +16,7 @@
     <module>topProject-executable-jar</module>
     <module>topProject-spring-pure-netty</module>
     <module>topProject-pattern</module>
+    
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
