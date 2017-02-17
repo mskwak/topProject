@@ -68,6 +68,8 @@ public class EncodeMailbox {
 			while((line = bufferedReader.readLine()) != null) {
 				// TODO RFC2060를 읽어라
 				String utf7 = BASE64MailboxEncoder.encode(line);
+				bufferedWriter.write(line);
+				bufferedWriter.write("    ");
 				bufferedWriter.write(utf7);
 				bufferedWriter.newLine();
 				//System.out.println(line + ":" + utf7);
