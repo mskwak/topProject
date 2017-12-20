@@ -107,7 +107,7 @@ RFC 2060                       IMAP4rev1                   December 1996
  * @author	Christopher Cotton
  */
 
-public class Test {
+public class Base64 {
     protected byte[] buffer = new byte[4];
     protected int bufsize = 0;
     protected boolean started = false;
@@ -115,7 +115,7 @@ public class Test {
 
 
     public static String encode(String original) {
-    	Test base64stream = null;
+    	Base64 base64 = null;
 		char origchars[] = original.toCharArray();
 		int length = origchars.length;
 		System.out.println("length: " + length);
@@ -131,8 +131,8 @@ public class Test {
 		    // 0x26 "&" is represented as "&-"
 		    if (current >= 0x20 && current <= 0x7e) {
 		    	System.out.println("inside ascii");
-		    	if (base64stream != null) {
-				    base64stream.flush();
+		    	if (base64 != null) {
+				    base64.flush();
 				}
 
 				if (current == '&') {
@@ -150,18 +150,18 @@ public class Test {
 				// the beginning '&' and the ending '-' which is part
 				// of every encoding.
 
-				if (base64stream == null) {
-				    base64stream = new Test(writer);
+				if (base64 == null) {
+				    base64 = new Base64(writer);
 				    changedString = true;
 				}
 
-				base64stream.write(current);
+				base64.write(current);
 				System.out.println("current1:" + current);
 		    }
 		}
 
-		if (base64stream != null) {
-		    base64stream.flush();
+		if (base64 != null) {
+		    base64.flush();
 		}
 
 		if (changedString) {
@@ -175,7 +175,7 @@ public class Test {
     /**
      * Create a BASE64 encoder
      */
-    public Test(Writer what) {
+    public Base64(Writer what) {
     	this.out = what;
     }
 
@@ -185,23 +185,45 @@ public class Test {
 		try {
 		    // write out the initial character if this is the first time
 		    if (!this.started) {
-			this.started = true;
-			this.out.write('&');
+		    	System.out.println("ssssssssssssssssssssssssss");
+		    	this.started = true;
+		    	this.out.write('&');
 		    }
 
 		    int d = c;
+		    int e = c;
+
+		    // 곽은 유니코드 int로 44285이다.
+		    // 44285는 1010 1100 1111 1101 이다.
+		    // 44285 >> 8 하면 1010 1100 이고 이는 십진수 172 이다.
+		    //
 
 //		    System.out.println(">>:" + (d >> 8));
-		    System.out.println(">>:" + ((byte) d >> 8));
+//		    System.out.println(">>:" + ((byte) d >> 8));
+//		    System.out.println(">>:" + ((byte) d >> 0xff));
+
+		    System.out.println(">>:" + (e >> 8));
+		    System.out.println(">>:" + (e & 0xff));
 //		    System.out.println(">>:" + ((byte) 172));
 
 		    // we write each character as a 2 byte unicode character
+		    // buffer는 4바이트 크기이다.
+
+		    //http://emflant.tistory.com/133
+
 		    this.buffer[this.bufsize++] = (byte) (c >> 8);
+
+		    System.out.println(this.buffer[0]);
+
 		    this.buffer[this.bufsize++] = (byte) (c & 0xff);
 
+		    System.out.println(this.buffer[1]);
+
+		    System.out.println("bufsize: " + this.bufsize);
+
 		    if (this.bufsize >= 3) {
-			this.encode();
-			this.bufsize -= 3;
+		    	this.encode();
+		    	this.bufsize -= 3;
 		    }
 		} catch (IOException e) {
 		    //e.printStackTrace();
@@ -210,64 +232,76 @@ public class Test {
 
 
     public void flush() {
-	try {
-	    // flush any bytes we have
-	    if (this.bufsize > 0) {
-		this.encode();
-		this.bufsize = 0;
-	    }
+		try {
+		    // flush any bytes we have
+		    if (this.bufsize > 0) {
+		    	this.encode();
+		    	this.bufsize = 0;
+		    }
 
-	    // write the terminating character of the encoding
-	    if (this.started) {
-		this.out.write('-');
-		this.started = false;
-	    }
-	} catch (IOException e) {
-	    //e.printStackTrace();
-	}
+		    // write the terminating character of the encoding
+		    if (this.started) {
+		    	System.out.println("terminated...........................");
+				this.out.write('-');
+				this.started = false;
+		    }
+		} catch (IOException e) {
+		    //e.printStackTrace();
+		}
     }
 
 
     protected void encode() throws IOException {
-	byte a, b, c;
-	if (this.bufsize == 1) {
-	    a = this.buffer[0];
-	    b = 0;
-	    c = 0;
-	    this.out.write(pem_array[(a >>> 2) & 0x3F]);
-	    this.out.write(pem_array[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
-		// no padding characters are written
-	} else if (this.bufsize == 2) {
-	    a = this.buffer[0];
-	    b = this.buffer[1];
-	    c = 0;
-	    this.out.write(pem_array[(a >>> 2) & 0x3F]);
-	    this.out.write(pem_array[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
-	    this.out.write(pem_array[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
-		// no padding characters are written
-	} else {
-	    a = this.buffer[0];
-	    b = this.buffer[1];
-	    c = this.buffer[2];
-	    this.out.write(pem_array[(a >>> 2) & 0x3F]);
-	    this.out.write(pem_array[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
-	    this.out.write(pem_array[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
-	    this.out.write(pem_array[c & 0x3F]);
+		byte a, b, c, aa, bb, cc;
 
-	    // copy back the extra byte
-	    if (this.bufsize == 4)
-		this.buffer[0] = this.buffer[3];
-        }
+		if (this.bufsize == 1) {
+			System.out.println("11111111111111111111111111111111111111111111");
+		    a = this.buffer[0];
+		    b = 0;
+		    c = 0;
+		    this.out.write(pem_array[(a >>> 2) & 0x3F]);
+		    this.out.write(pem_array[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
+			// no padding characters are written
+		} else if (this.bufsize == 2) {
+			System.out.println("22222222222222222222222222222222222222222222");
+		    a = this.buffer[0];
+		    aa = this.buffer[0];
+		    b = this.buffer[1];
+		    bb = this.buffer[1];
+
+		    System.out.println("222222: " + aa + bb);
+
+		    c = 0;
+		    this.out.write(pem_array[(a >>> 2) & 0x3F]);
+		    this.out.write(pem_array[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
+		    this.out.write(pem_array[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
+			// no padding characters are written
+		} else {
+			System.out.println("33333333333333333333333333333333333333333333");
+
+		    a = this.buffer[0];
+		    b = this.buffer[1];
+		    c = this.buffer[2];
+		    this.out.write(pem_array[(a >>> 2) & 0x3F]);
+		    this.out.write(pem_array[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
+		    this.out.write(pem_array[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
+		    this.out.write(pem_array[c & 0x3F]);
+
+		    // copy back the extra byte
+		    if (this.bufsize == 4)
+		    	System.out.println("44444444444444444444444444444444444444444444");
+		    	this.buffer[0] = this.buffer[3];
+	     }
     }
 
     private final static char pem_array[] = {
-	'A','B','C','D','E','F','G','H', // 0
-	'I','J','K','L','M','N','O','P', // 1
-	'Q','R','S','T','U','V','W','X', // 2
-	'Y','Z','a','b','c','d','e','f', // 3
-	'g','h','i','j','k','l','m','n', // 4
-	'o','p','q','r','s','t','u','v', // 5
-	'w','x','y','z','0','1','2','3', // 6
-	'4','5','6','7','8','9','+',','  // 7
+		'A','B','C','D','E','F','G','H', // 0
+		'I','J','K','L','M','N','O','P', // 1
+		'Q','R','S','T','U','V','W','X', // 2
+		'Y','Z','a','b','c','d','e','f', // 3
+		'g','h','i','j','k','l','m','n', // 4
+		'o','p','q','r','s','t','u','v', // 5
+		'w','x','y','z','0','1','2','3', // 6
+		'4','5','6','7','8','9','+',','  // 7
     };
 }
