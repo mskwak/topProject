@@ -269,7 +269,7 @@ public class Base64 {
 		    b = this.buffer[1];
 		    bb = this.buffer[1];
 
-		    System.out.println("222222: " + aa + bb);
+		    System.out.println("222222: " + (char)aa);
 
 		    c = 0;
 		    this.out.write(pem_array[(a >>> 2) & 0x3F]);
